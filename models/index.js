@@ -1,11 +1,12 @@
-//var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 //const {promisify} = require('util');
-var mongoose = require('mongoose').model('customers')
-var url = "mongodb://localhost:27017/mydb";
+// var mongoose = require('mongoose')
+var url = "mongodb://localhost:27017";
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
-mongoose.Promise = global.Promise;
-mongoose.connect(url);
-console.log(mongoose)
+
+// mongoose.connect(url);
+// console.log(mongoose.modelNames())
 // console.log(q.host); //returns 'localhost:8080'
 // console.log(q.pathname); //returns '/default.htm'
 // console.log(q.search); //returns '?year=2017&month=february'
@@ -55,6 +56,15 @@ console.log(mongoose)
 //         { name: 'Chuck', address: 'Main Road 989',subject:"Tautology",rollno:"0537cs161004" },
 //         { name: 'Viola', address: 'Sideway 1633',subject:"Tautology",rollno:"0537cs161004" }
 //       ];
+const csvWriter = createCsvWriter({
+    path: 'public/out.csv',
+    header: [
+      {id: 'name', title: 'Name'},
+      {id: 'address', title: 'Address'},
+      {id: 'subject', title: 'Subject'},
+      {id: 'rollno', title: 'Rollno'},
+    ]
+  });
 //   //  var myobj = { name: "Think future", address: "Bunglows1",subject:"maths",rollno:"0537cs161015" };
 //   dbo.collection("customers").insertMany(myobj, function(err, res) {
 //     if (err) throw err;
@@ -63,18 +73,21 @@ console.log(mongoose)
 //   });
 //   });
 //displaying multiple values from the database
- var data = []
-// MongoClient.connect(url, function(err, db) {
-//     if (err) throw err;
-//     var dbo = db.db("mydb");
-//     dbo.collection("customers").find({}).toArray(function(err, result) {
-//       if (err) throw err;
-//       data.push(result)
-//       console.log(result);
-//       db.close();
-//     });
-//     module.exports = data
-//   });
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    dbo.collection("customers").find({}).toArray(function(err, result) {
+      if (err) throw err;
+    
+      csvWriter
+      .writeRecords(result)
+      .then(()=> console.log('The CSV file was written successfully'));
+    
+      db.close();
+    });
+   
+  });
 
 //querying the database using regular expression
 
@@ -96,5 +109,4 @@ console.log(mongoose)
 //     });
     
 //   });
-  console.log(data)
-  module.exports=data
+
