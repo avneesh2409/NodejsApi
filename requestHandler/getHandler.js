@@ -1,6 +1,10 @@
+
 const getHandler= (req, res) => {
-    
-    res.send('Hello get')
+    var data = require('../models/index')
+    if(data.length)
+    {
+    res.send(data)
+    }
 }
 
 module.exports = getHandler
