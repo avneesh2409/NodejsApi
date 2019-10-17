@@ -1,8 +1,4 @@
-var MongoClient = require('mongodb').MongoClient;
-//const {promisify} = require('util');
-// var mongoose = require('mongoose')
-var url = "mongodb://localhost:27017";
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
 
 
 // mongoose.connect(url);
@@ -37,57 +33,10 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 //     });
 //   });
   //insert data into table
-// MongoClient.connect(url, function(err, db) {
-//     if (err) throw err;
-//     var dbo = db.db("mydb");
-//     var myobj = [
-//         { name: 'John', address: 'Highway 71',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Peter', address: 'Lowstreet 4',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Amy', address: 'Apple st 652',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Hannah', address: 'Mountain 21',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Michael', address: 'Valley 345',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Sandy', address: 'Ocean blvd 2',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Betty', address: 'Green Grass 1',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Richard', address: 'Sky st 331',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Susan', address: 'One way 98',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Vicky', address: 'Yellow Garden 2',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Ben', address: 'Park Lane 38',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'William', address: 'Central st 954',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Chuck', address: 'Main Road 989',subject:"Tautology",rollno:"0537cs161004" },
-//         { name: 'Viola', address: 'Sideway 1633',subject:"Tautology",rollno:"0537cs161004" }
-//       ];
-const csvWriter = createCsvWriter({
-    path: 'public/out.csv',
-    header: [
-      {id: 'name', title: 'Name'},
-      {id: 'address', title: 'Address'},
-      {id: 'subject', title: 'Subject'},
-      {id: 'rollno', title: 'Rollno'},
-    ]
-  });
-//   //  var myobj = { name: "Think future", address: "Bunglows1",subject:"maths",rollno:"0537cs161015" };
-//   dbo.collection("customers").insertMany(myobj, function(err, res) {
-//     if (err) throw err;
-//     console.log("Number of documents inserted: " + res.insertedCount);
-//     db.close();
-//   });
-//   });
+
 //displaying multiple values from the database
 
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    dbo.collection("customers").find({}).toArray(function(err, result) {
-      if (err) throw err;
-    
-      csvWriter
-      .writeRecords(result)
-      .then(()=> console.log('The CSV file was written successfully'));
-    
-      db.close();
-    });
-   
-  });
+
 
 //querying the database using regular expression
 

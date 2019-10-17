@@ -7,11 +7,11 @@ const getHandler= (req, res) => {
     .pipe(csv())
     .on('data', (row) => {
         data.push(row)
-      console.log(row);
+      
     })
     .on('end', () => {
       console.log('CSV file successfully processed');
-      console.log(data)
+     
       res.json(data)
     });
  
